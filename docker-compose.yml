@@ -9,18 +9,18 @@ services:
     environment:
       - NODE_ENV=production
       - PORT=3000
+    restart: unless-stopped
 
-  nginx:
-    build:
-      context: .
-      dockerfile: nginx/Dockerfile
-    container_name: nginx
+  frontend:
+    build: ./frontend
+    container_name: frontend
     ports:
       - "80:80"
     depends_on:
       - backend
     networks:
       - appnet
+    restart: unless-stopped
 
 networks:
   appnet:
