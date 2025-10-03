@@ -87,7 +87,38 @@ docker-compose -f deploy/docker-compose.prod.yml up -d
 
 ## AWS Deployment
 
-See [AWS Deployment Guide](deploy/aws-deployment.md) for detailed instructions on deploying to AWS with CloudFront.
+### 🚀 Terraform Deployment (Recommended)
+
+Deploy to AWS EC2 with CloudFront using Terraform:
+
+```bash
+# Quick deployment
+./scripts/deploy-terraform.sh deploy
+
+# Check status
+./scripts/deploy-terraform.sh status
+
+# Destroy infrastructure
+./scripts/deploy-terraform.sh destroy
+```
+
+**Prerequisites:**
+- AWS CLI configured
+- Terraform >= 1.0 installed
+- SSH key pair in AWS account
+
+**Features:**
+- **EC2 Instance**: Auto-configured with Docker
+- **CloudFront CDN**: Global content delivery
+- **VPC Networking**: Secure network configuration
+- **Monitoring**: CloudWatch logs and metrics
+- **Auto-deployment**: Clones repo and starts application
+
+See [Terraform Documentation](terraform/README.md) for detailed configuration.
+
+### CloudFormation Deployment
+
+See [AWS Deployment Guide](deploy/aws-deployment.md) for CloudFormation-based deployment.
 
 ### CloudFront Features
 - **CDN**: Global content delivery

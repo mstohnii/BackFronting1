@@ -1,13 +1,27 @@
+# Variables for BackFronting1 Terraform configuration
+
 variable "aws_region" {
-  description = "AWS region to deploy resources into"
+  description = "AWS region"
   type        = string
   default     = "us-east-1"
 }
 
 variable "project_name" {
-  description = "Project/name prefix for resource tagging"
+  description = "Name of the project"
   type        = string
   default     = "backfronting1"
+}
+
+variable "vpc_cidr" {
+  description = "CIDR block for VPC"
+  type        = string
+  default     = "10.0.0.0/16"
+}
+
+variable "public_subnet_cidr" {
+  description = "CIDR block for public subnet"
+  type        = string
+  default     = "10.0.1.0/24"
 }
 
 variable "instance_type" {
@@ -16,46 +30,26 @@ variable "instance_type" {
   default     = "t3.micro"
 }
 
-variable "key_name" {
-  description = "Existing AWS EC2 key pair name for SSH access"
+variable "github_repo" {
+  description = "GitHub repository URL"
   type        = string
-  default     = null
+  default     = "https://github.com/mstohnii/BackFronting1"
 }
 
-variable "vpc_id" {
-  description = "Optional: existing VPC ID to deploy into. If null, default VPC is used"
+variable "public_key_path" {
+  description = "Path to the public key file"
   type        = string
-  default     = null
+  default     = "~/.ssh/id_rsa.pub"
 }
 
-variable "subnet_id" {
-  description = "Optional: existing public subnet ID in the chosen VPC. If null, attempts to use a default VPC public subnet"
+variable "environment" {
+  description = "Environment name"
   type        = string
-  default     = null
+  default     = "production"
 }
 
-variable "allowed_ssh_cidr" {
-  description = "CIDR block allowed to SSH to the instance"
+variable "domain_name" {
+  description = "Domain name for the application (optional)"
   type        = string
-  default     = "0.0.0.0/0"
+  default     = ""
 }
-
-variable "github_repo_url" {
-  description = "Git repository URL to clone and deploy"
-  type        = string
-  default     = "https://github.com/mstohnii/BackFronting1.git"
-}
-
-variable "compose_file" {
-  description = "docker-compose file path to use (relative to repo root). For prod, use deploy/docker-compose.prod.yml"
-  type        = string
-  default     = "docker-compose.yml"
-}
-
-variable "use_prod_compose" {
-  description = "If true, use deploy/docker-compose.prod.yml"
-  type        = bool
-  default     = true
-}
-
-
