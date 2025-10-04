@@ -1,13 +1,4 @@
 # Terraform configuration for BackFronting1 application on AWS EC2
-terraform {
-  required_version = ">= 1.0"
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 5.0"
-    }
-  }
-}
 
 provider "aws" {
   region = var.aws_region
@@ -213,10 +204,11 @@ resource "aws_cloudfront_distribution" "main" {
 
   # API routes should not be cached
   ordered_cache_behavior {
-    path_pattern     = "/api/*"
-    allowed_methods  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
-    cached_methods   = ["GET", "HEAD"]
-    target_origin_id = "S3-${var.project_name}"
+    path_pattern           = "/api/*"
+    allowed_methods        = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
+    cached_methods         = ["GET", "HEAD"]
+    target_origin_id       = "S3-${var.project_name}"
+    viewer_protocol_policy = "redirect-to-https"
 
     forwarded_values {
       query_string = true
